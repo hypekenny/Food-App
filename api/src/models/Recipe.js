@@ -8,5 +8,21 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    summary: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    score: {
+      type: DataTypes.DECIMAL,
+      allowNull: true
+    },
+    healthScore: {
+      type: DataTypes.DECIMAL,
+      allowNull: true
+    },
+    stepByStep: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    }
   });
 };

@@ -1,10 +1,11 @@
 const router = require('express').Router();
-const { Recipe } = require('../models/Recipe');
-const { Diet } = require('../models/Diet');
+const { Recipe, Diet } = require('../db.js')
 
 
-router.get('/', function(req, res) {
-    res.send('ruta types');
+router.get('/', (req, res, next) => {
+    Diet.findAll()
+    .then(diets => res.send(diets))
+    .catch(error => next(error))
 });
 
 

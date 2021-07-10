@@ -6,14 +6,14 @@ const { v4: uuidv4 } = require('uuid');
 const { Op } = require("sequelize");
 const router = Router();
 const {
-    API_KEY, API_URL, API_URL_ID
+    API_KEY, API_URL, API_URL_ID, API_KEY2, API_KEY3
   } = process.env;
 
 
 router.get('/', (req, res, next) => {    
     const name = req.query.name;
-    const myDb = Recipe.findAll({ where: { name: {[Op.like]: `%${name}%`} }, include: Diet });
-    const api = axios.get(`${API_URL}?query=${name}&number=9&addRecipeInformation=true&apiKey=${API_KEY}`);
+    const myDb = Recipe.findAll({ where: { title: {[Op.like]: `%${name}%`}}, include: Diet});
+    const api = axios.get(`${API_URL}?query=${name}&number=8&addRecipeInformation=true&apiKey=${API_KEY3}`);
     Promise.all([myDb, api])
     .then(results => {
         const [myDbResults, apiResults] = results;
@@ -26,16 +26,17 @@ router.get('/', (req, res, next) => {
     .catch(error => next(error));   
 });
 
-router.get('/:idReceta', (req, res, next) => {
-    const id = req.params.idReceta;    
+router.get('/:idReceta', (req, res, next) => {    
+    const id = req.params.idReceta;
+    console.log('BBBBBBBB', id);
     const rx = new RegExp(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i);
     let match = id.match(rx);    
     if(match) {
-        return Recipe.findByPk(id, { include: Diet })  // si lo pasan como string usar parseInt
+        return Recipe.findByPk(id, { include: { model: Diet }})  // si lo pasan como string usar parseInt
         .then(recipe => res.send(recipe))
         .catch(error => next(error));
     }
-    axios.get(`${API_URL_ID}/${id}/information?apiKey=${API_KEY}`)
+    axios.get(`${API_URL_ID}/${id}/information?apiKey=${API_KEY3}`)
     .then(response => {
         const {title, image, diets, summary, instructions, spoonacularScore, healthScore } = response.data;
         res.send({
@@ -52,20 +53,28 @@ router.get('/:idReceta', (req, res, next) => {
     
 });
 
-router.post('/', (req, res, next) => {
-    const recipe = req.body;
-    const diets = req.body.diets;   
-    console.log('AAAAAA', recipe);
-    if(!recipe) res.send('Must send a valid recipe');
+router.post('/', async (req, res, next) => {    
+    const { title, spoonacularScore, healthScore, summary, stepByStep } = req.body;
+    const diets = req.body.diets;
+    var d = diets.map(e => parseInt(e));
+    console.log('DDDDD: ', d);   
 
-    Recipe.create({
-             ...recipe,
+
+    let newRecipe = await Recipe.create({
+             title,
+             spoonacularScore,
+             healthScore,
+             summary,             
+             stepByStep,
              id: uuidv4()
                   })
-                  .then(recipe => diets && recipe.setDiets(diets))
-                  .catch(error => next(error));
 
-     res.send(recipe);    
+    d.map(async (d) => await newRecipe.setDiets(d))
+        
+   
+         res.send(newRecipe);
+
+        
 });
 
 

@@ -1,0 +1,79 @@
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px; 
+  }
+
+  .backButton {
+    background-color: #da2323;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px; 
+    
+  }
+
+  .danger {
+    border: 2px solid red;
+  }
+
+  .input {
+    width: 100%;        
+    box-sizing: border-box;
+    padding: 12px 20px;    
+  }
+
+  .summary {
+    box-sizing: border-box;
+    padding: 12px 20px;
+    
+  }
+
+  .step {
+    padding: 12px 20px;
+  }
+
+  .score {
+    padding: 12px 20px;
+  }
+
+  .health {
+    padding: 12px 20px;
+  }
+
+  .diets {
+    padding: 12px 20px;
+    
+  }
+
+  .close {      
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+  }
+  .close:hover {
+    opacity: 1;
+  }
+  .close:before, .close:after {    
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: rgb(70, 66, 66);
+  }
+  

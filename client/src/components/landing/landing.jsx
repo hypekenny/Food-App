@@ -1,27 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import './landing.css';
+import styles from './landing.module.css';
 
 
-export default function Landing() {
-
-    const [red, setRed] = useState('');
-    const [flag, setflag] = useState(false);
+export default function Landing() {  
 
     
-   /*  function goInside() {
-        setRed('/home');
-        setflag(true);        
-        }
-        
-        if(flag) {
-            return <Redirect to={red} />
-        }; */
-
     return (
-        <div>
+        <div className={styles.back}>
             <Link to={'/home'}>
-                <h5 className='button'>Start cooking</h5>
+                <h5 className={styles.button}>Start cooking</h5>
             </Link>
         </div>
     )

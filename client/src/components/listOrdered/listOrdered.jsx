@@ -25,7 +25,8 @@ export function ListOrdered(props) {
                                             <p>{d}</p>
                                         </ul>
                                         )}
-                                    </div> : null}                        
+                                    </div> : null}   
+                                                       
 
                             </div>    
                                       )}

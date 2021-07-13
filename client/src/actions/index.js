@@ -23,7 +23,7 @@ export function getDetail(id) {
             console.log('RESPONSE: ', response.data);
             dispatch({ type: RECIPE_DETAIL, payload: response.data})
             })
-            .catch(error => console.error(error));
+            .catch(error => alert(error));
     }
 };
 

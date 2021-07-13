@@ -1,10 +1,11 @@
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import {connect} from 'react-redux';
 import { createRecipe } from '../../actions/index';
 import styles from './createRecipe.module.css'
+const { arrayDiets } = require('../../utils/constants');
 
 
 export function CreateRecipe(props) {    
@@ -18,10 +19,19 @@ export function CreateRecipe(props) {
         diets: []       
       });
       
+      
       const [diets, setDiets] = useState([]);
       const [errors, setErrors] = useState({});
       const [disable, setDisable] = useState(true);
     
+      
+      useEffect(() => {
+        if(Object.values(errors).length === 0) {
+            setDisable(false);
+          } else {
+            setDisable(true);
+          }        
+      }, [errors])
       
       function handleChange(e) {
         setErrors(validate({
@@ -50,14 +60,17 @@ export function CreateRecipe(props) {
         return errors;
       }
 
-
+      useEffect(() =>{
+        setState({ ...state, diets});
+        console.log('HANDLE DIETS EFFECT: ', state);
+        console.log('SET DIETS EFFECT: ', diets);
+      }, [diets] )
 
       function handleDiets(e) {
+        const value = e.target.value;
         if(e.target.value !== 'x' && !diets.includes(e.target.value)) {
-        setDiets (arr => [...arr, e.target.value])
-        }
-        setState({ ...state, diets});
-      }
+        setDiets ([...diets, value])  
+      }}
       
 
       function removeDiet(d) {
@@ -65,19 +78,20 @@ export function CreateRecipe(props) {
           let index = array.indexOf(d)          
           array.splice(index, 1);          
           setDiets([...array]);
-          setState({ ...state, diets});        
+          setState({ ...state, diets});
+          console.log('REMOVE DIETS: ', state);
       }
       
-      const arrayDiets = ['notUsed', 'Gluten free', 'Ketogenic', 'Vegetarian', 'Lacto-vegetarian',
-                        'Ovo-vegetarian', 'Vegan', 'Pescetarian', 'Paleo', 'Primal', 'Whole30'];
+      /* const arrayDiets = ['notUsed', 'gluten free', 'ketogenic', 'vegetarian', 'lacto ovo vegetarian',
+                        'dairy free', 'vegan', 'pescetarian', 'paleolithic', 'primal', 'whole30']; */
             
 
 
       function handleSubmit(e) {        
         e.preventDefault();        
-        console.log(state);
+        console.log('HANDLE SUBMIT: ', state);
         props.createRecipe(state);        
-        redirect();    
+        redirect();
       }     
             
     
@@ -159,7 +173,7 @@ export function CreateRecipe(props) {
                     value={state.setpByStep}/>
             </div>
             <div>
-              <button type='submit' className={styles.button} disabled={disable}>Add</button>
+              <button type='submit' disabled={disable}>Add</button>
             </div>
             </form>
             <div className={styles.diets}>
@@ -171,7 +185,9 @@ export function CreateRecipe(props) {
                 {diets && diets.map(d => {    
                     let i = parseInt(d);                    
                     return (<div key={arrayDiets[i]}>
+                        <div>
                         <p>{arrayDiets[i]}</p>                        
+                        </div>
                         <button className='close' onClick={e => removeDiet(d)} >x</button>
                         </div>
                         )
@@ -183,11 +199,11 @@ export function CreateRecipe(props) {
                 <option value='1'>Gluten free</option>
                 <option value='2'>Ketogenic</option>
                 <option value='3'>Vegetarian</option>
-                <option value='4'>Lacto-vegetarian</option>
-                <option value='5'>Ovo-vegetarian</option>
+                <option value='4'>Lacto ovo vegetarian</option>
+                <option value='5'>Dairy free</option>
                 <option value='6'>Vegan</option>   
                 <option value='7'>Pescetarian</option>
-                <option value='8'>Paleo</option>
+                <option value='8'>Paleolithic</option>
                 <option value='9'>Primal</option>
                 <option value='10'>Whole30</option>
             </select>                     

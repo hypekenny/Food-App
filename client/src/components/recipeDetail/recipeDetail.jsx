@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getDetail } from '../../actions/index';
 import { Link, useHistory } from 'react-router-dom';
 import altimage from "../../utils/altimage.png";
+import NotFound from '../notFound/notFound';
 
 
 
@@ -20,7 +21,7 @@ export function RecipeDetail(props) {
         getDetail(id);        
     }, [])
 
-    console.log('AAAAAA', props.recipe.diets);
+    console.log('AAAAAA', props.recipe);
 
     const aux = useHistory().location.pathname;
 
@@ -28,7 +29,9 @@ export function RecipeDetail(props) {
 
 
     return (        
-        <div id={props.recipe.id}>            
+        <div id={props.recipe.id}>
+            { props.recipe ? (  
+                <>         
             <h2>{props.recipe.title}</h2>
             <img src={props.recipe.image ? props.recipe.image : altimage} alt=''/>
             <div>
@@ -43,12 +46,12 @@ export function RecipeDetail(props) {
                 <p>Score: {props.recipe.spoonacularScore}</p>
                 <p>Health Score: {props.recipe.healthScore}</p>
                {console.log('DIETAAAAA: ', props.recipe.diets)}               
-               <span>Diets: { props.recipe.diets && props.recipe.diets.map((e, index) => <p key={`${props.recipe.id}-${index}`} >{e}</p>)}</span>
+               <span>Diets: { props.recipe.diets && props.recipe.diets.map((e, index) => <p key={`${props.recipe.id}-${index}`}>{e}</p>)}</span>
             </div>
             <Link to={'/home'}>
                 <h5>Go back</h5>
             </Link>
-
+             </>) : <NotFound/> }
         </div>
     )
 }

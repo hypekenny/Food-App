@@ -6,14 +6,14 @@ const { v4: uuidv4 } = require('uuid');
 const { Op } = require("sequelize");
 const router = Router();
 const {
-    API_KEY, API_URL, API_URL_ID, API_KEY2, API_KEY3
+    API_KEY, API_URL, API_URL_ID, API_KEY2, API_KEY3, API_KEY4, API_KEY5
   } = process.env;
 
 
 router.get('/', (req, res, next) => {    
     const name = req.query.name;
     const myDb = Recipe.findAll({ where: { title: {[Op.like]: `%${name}%`}}, include: Diet});
-    const api = axios.get(`${API_URL}?query=${name}&number=8&addRecipeInformation=true&apiKey=${API_KEY3}`);
+    const api = axios.get(`${API_URL}?query=${name}&number=18&addRecipeInformation=true&apiKey=${API_KEY5}`);
     Promise.all([myDb, api])
     .then(results => {
         const [myDbResults, apiResults] = results;
@@ -36,7 +36,7 @@ router.get('/:idReceta', (req, res, next) => {
         .then(recipe => res.send(recipe))
         .catch(error => next(error));
     }
-    axios.get(`${API_URL_ID}/${id}/information?apiKey=${API_KEY3}`)
+    axios.get(`${API_URL_ID}/${id}/information?apiKey=${API_KEY5}`)
     .then(response => {
         const {title, image, diets, summary, instructions, spoonacularScore, healthScore } = response.data;
         res.send({
@@ -57,8 +57,7 @@ router.post('/', async (req, res, next) => {
     const { title, spoonacularScore, healthScore, summary, stepByStep } = req.body;
     const diets = req.body.diets;
     var d = diets.map(e => parseInt(e));
-    console.log('DDDDD: ', d);   
-
+    
 
     let newRecipe = await Recipe.create({
              title,

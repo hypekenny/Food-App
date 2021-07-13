@@ -1,14 +1,46 @@
 import { Link } from 'react-router-dom';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import altimage from "../../utils/altimage.png";
+import { useState, useEffect } from 'react';
+import NotFound from '../notFound/notFound';
+import style from './listRecipes.module.css';
 
 
 
 export function List(props) {
 
+    const [currentPage, setCurrentPage] = useState(0);
+      
+    useEffect(() => {
+        setCurrentPage(0);
+    }, [props.recipes] );
+   
+        function pages() {
+            
+        return props.recipes.slice(currentPage, currentPage + 5);
+        };
+
+        function nextPage() {
+            if(props.recipes.length > currentPage + 5) {
+            setCurrentPage(currentPage + 5);
+        }};
+
+        
+        function prevPage() {
+            if(currentPage > 0) {
+            setCurrentPage(currentPage - 5);
+        }};
+    
+        
         return (
-                <div>
-                    { !!props.recipes.length && props.recipes.map(e =>
+                <div>                    
+                    { pages() ? (
+                    <>
+                    <div>
+                        <button onClick={prevPage}>Prev Page</button>
+                        <button onClick={nextPage}>Next Page</button>
+                    </div>
+                    { !!pages() && pages().map(e =>
                             <div key={e.id}>
                                 <div>
                                     <img src={e.image ? e.image : altimage} alt={"no imagen"}/>
@@ -30,6 +62,7 @@ export function List(props) {
 
                             </div>    
                                       )}
+                                      </>) : <NotFound/>}
 
                 </div>
 
@@ -42,6 +75,7 @@ function mapStateToProps(state) {
      };
   };
 
+ 
 export default connect(
     mapStateToProps,
     null

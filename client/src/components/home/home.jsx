@@ -13,9 +13,10 @@ export function Home(props) {
     const [state, setState] = useState('');
     const [sorted, setSorted] = useState(recipes);
     
-    useEffect(() => {
-        getRecipes('');
-    }, [getRecipes])
+    
+    useEffect(() => {        
+        getRecipes(state);        
+    }, [])
     
     useEffect(() => {
         setShow(sorted); 
@@ -27,8 +28,8 @@ export function Home(props) {
     };
 
     function handleSubmit(e) {
-        e.preventDefault();
-        props.getRecipes(state);                
+        e.preventDefault();        
+        props.getRecipes(state);               
     };
 
     function filterDiet(e) {
@@ -82,11 +83,11 @@ export function Home(props) {
                             <option value='gluten free'>Gluten free</option>
                             <option value='ketogenic'>Ketogenic</option>
                             <option value='vegetarian'>Vegetarian</option>
-                            <option value='lacto-vegetarian'>Lacto-vegetarian</option>
-                            <option value='ovo-vegetarian'>Ovo-vegetarian</option>
+                            <option value='lacto ovo vegetarian'>Lacto ovo vegetarian</option>
+                            <option value='dairy free'>Dairy free</option>  
                             <option value='vegan'>Vegan</option>
                             <option value='pescetarian'>Pescetarian</option>
-                            <option value='paleo'>Paleo</option>
+                            <option value='paleolithic'>Paleo</option>
                             <option value='primal'>Primal</option>
                             <option value='whole30'>Whole30</option>
                         </select>
@@ -98,7 +99,7 @@ export function Home(props) {
                 </div>
                 <div>
                 {console.log('RENDER TO SHOW: ', show)}                     
-                    <List/>                     
+                    <List/>
                 </div>
         </div>
     )

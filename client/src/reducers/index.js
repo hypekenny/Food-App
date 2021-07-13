@@ -18,8 +18,9 @@ export default function reducer(state = initialState, { type, payload }) {
         recipes: array
       }
       case RECIPE_DETAIL: 
-        let obj = payload;
-        if(typeof payload.diets === 'object') obj = dietsArray(payload);
+        let obj = payload;        
+        if(typeof obj.diets[0] === 'object') obj = dietsArray(payload);        
+        console.log('PAYLOAD :', obj.diets);
         return {
         ...state,
         details: obj

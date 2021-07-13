@@ -4,11 +4,11 @@ diets: [
     'gluten free', 
     'ketogenic',
     'vegetarian',
-    'lacto-vegetarian',
-    'ovo-vegetarian',
+    'lacto ovo vegetarian',
+    'dairy free',
     'vegan',
     'pescetarian',
-    'paleo',
+    'paleolithic',
     'primal',
     'whole30'
     ]

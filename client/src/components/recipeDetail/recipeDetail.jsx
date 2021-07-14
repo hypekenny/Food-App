@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getDetail } from '../../actions/index';
+import { getDetail, resetDetail } from '../../actions/index';
 import { Link, useHistory } from 'react-router-dom';
+import Loading from '../loading/loading';
 import altimage from "../../utils/altimage.png";
-import NotFound from '../notFound/notFound';
+import style from './recipeDetail.module.css';
 
 
 
@@ -18,6 +19,7 @@ export function RecipeDetail(props) {
 
     useEffect(() => {
         console.log('ENTRO AL USEEFFECT');
+        props.resetDetail();
         getDetail(id);        
     }, [])
 
@@ -26,21 +28,26 @@ export function RecipeDetail(props) {
     const aux = useHistory().location.pathname;
 
     console.log(aux); 
+    console.log('FUNCIOOOOOON: ', props.recipe );
 
 
     return (        
         <div id={props.recipe.id}>
-            { props.recipe ? (  
+            { props.recipe.title ? (  
                 <>         
             <h2>{props.recipe.title}</h2>
-            <img src={props.recipe.image ? props.recipe.image : altimage} alt=''/>
+                <img src={props.recipe.image ? props.recipe.image : altimage} alt=''/>
             <div>
                 <h4>Summary:</h4>
-                <span dangerouslySetInnerHTML={{__html: props.recipe.summary}}></span>
+                     <div className={style.containerText}>
+                         <span className={style.text} dangerouslySetInnerHTML={{__html: props.recipe.summary}}></span>
+                    </div>
             </div>
             <div>
                 <h4>Step by step</h4>
-                <p dangerouslySetInnerHTML={{__html: props.recipe.instructions}}></p>
+                    <div className={style.containerText}>
+                        <p dangerouslySetInnerHTML={{__html: props.recipe.instructions}}></p>
+                    </div>
             </div>
             <div>
                 <p>Score: {props.recipe.spoonacularScore}</p>
@@ -51,7 +58,7 @@ export function RecipeDetail(props) {
             <Link to={'/home'}>
                 <h5>Go back</h5>
             </Link>
-             </>) : <NotFound/> }
+             </>) : <Loading/> }
         </div>
     )
 }
@@ -65,7 +72,8 @@ function mapStateToProps(state) {
   
   function mapDispatchToProps(dispatch) {
     return {
-        getDetail: id => dispatch(getDetail(id))      
+        getDetail: id => dispatch(getDetail(id)),
+        resetDetail: x => dispatch(resetDetail(x))      
     };
   }
 

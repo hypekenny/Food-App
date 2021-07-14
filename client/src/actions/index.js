@@ -5,6 +5,7 @@ export const RECIPE_DETAIL = 'RECIPE_DETAIL';
 export const CREATE_RECIPE = 'CREATE_RECIPE';
 export const GET_DIETS = 'GET_DIETS';
 export const SET_SHOW = 'SET_SHOW';
+export const RESET_DETAIL = 'RESET_DETAIL';
 
 export function getRecipes(state) {
     return (dispatch) => {
@@ -53,3 +54,9 @@ export function setShow(show) {
         dispatch({ type: SET_SHOW, payload: show})
     }
 };
+
+export function resetDetail() {
+    return (dispatch) => {
+        dispatch({ type: RESET_DETAIL, payload: {} })
+    }
+}

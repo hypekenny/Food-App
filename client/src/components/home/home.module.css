@@ -1,5 +1,5 @@
 .buttonhome {
-    background-color: #db6142;
+    background-color: #d6671d;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -9,12 +9,51 @@
     font-size: 16px;
     border-radius: 10px 10px 10px 10px;
     -webkit-border-radius: 10px 10px 10px 10px;
-    -moz-border-radius: 10px 10px 10px 10px;    
+    -moz-border-radius: 10px 10px 10px 10px;
+    transition-duration: 0.4s;  
   }
 
   .buttonhome:hover {
-    background-color: #383bd6;
-    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    background-color: #f07c10;
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 3px 5px 5px 0px rgba(0,0,0,0.75);
   }
+
+  .searchForm {
+    min-height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+  }
+
+  .searchBar {
+    border-radius: 5px;
+  }
+
+  .button {
+    border-radius: 2px;
+    background-color: white;
+    color: black;
+    border: 2px solid #d6671d;
+    background-color: #ffffff;
+    border-radius: 5px 5px 5px 5px;
+    transition-duration: 0.4s;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px; 
+  }
+
+  .button:hover {
+    background-color: #d6671d; 
+    color: white;
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px 5px 5px 0px rgba(0,0,0,0.75);
+  }
+
+  .select {
+    border-radius: 5px;   
+  }
+
+
+

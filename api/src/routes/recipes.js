@@ -13,7 +13,7 @@ const {
 router.get('/', (req, res, next) => {    
     const name = req.query.name;
     const myDb = Recipe.findAll({ where: { title: {[Op.like]: `%${name}%`}}, include: Diet});
-    const api = axios.get(`${API_URL}?query=${name}&number=18&addRecipeInformation=true&apiKey=${API_KEY5}`);
+    const api = axios.get(`${API_URL}?query=${name}&number=18&addRecipeInformation=true&apiKey=${API_KEY3}`);
     Promise.all([myDb, api])
     .then(results => {
         const [myDbResults, apiResults] = results;
@@ -36,7 +36,7 @@ router.get('/:idReceta', (req, res, next) => {
         .then(recipe => res.send(recipe))
         .catch(error => next(error));
     }
-    axios.get(`${API_URL_ID}/${id}/information?apiKey=${API_KEY5}`)
+    axios.get(`${API_URL_ID}/${id}/information?apiKey=${API_KEY3}`)
     .then(response => {
         const {title, image, diets, summary, instructions, spoonacularScore, healthScore } = response.data;
         res.send({
@@ -54,7 +54,7 @@ router.get('/:idReceta', (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {    
-    const { title, spoonacularScore, healthScore, summary, stepByStep } = req.body;
+    const { title, spoonacularScore, healthScore, summary, instructions } = req.body;
     const diets = req.body.diets;
     var d = diets.map(e => parseInt(e));
     
@@ -64,7 +64,7 @@ router.post('/', async (req, res, next) => {
              spoonacularScore,
              healthScore,
              summary,             
-             stepByStep,
+             instructions,
              id: uuidv4()
                   })
 

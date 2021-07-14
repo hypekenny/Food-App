@@ -76,4 +76,12 @@
     width: 2px;
     background-color: rgb(70, 66, 66);
   }
+
+  .link:link {
+    color: #2775db;
+  }
+
+  .link:visited {
+    color:rgb(62, 37, 170)
+  }
   

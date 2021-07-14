@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL,
       allowNull: true
     },
-    stepByStep: {
+    instructions: {
       type: DataTypes.TEXT,
       allowNull: true
     }

@@ -1,0 +1,10 @@
+.text {
+    text-align: right;
+    
+}
+
+.containerText {
+    border-style: solid;
+    border-color: black;
+    padding: 12px;
+}

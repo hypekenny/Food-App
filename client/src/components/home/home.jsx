@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { getRecipes, setShow } from '../../actions/index';
-import styles from './home.module.css';
+import style from './home.module.css';
 import List from "../ListRecipes/listRecipes";
 
 
@@ -13,11 +13,7 @@ export function Home(props) {
     const [state, setState] = useState('');
     const [sorted, setSorted] = useState(recipes);
     
-    
-    useEffect(() => {        
-        getRecipes(state);        
-    }, [])
-    
+   
     useEffect(() => {
         setShow(sorted); 
         console.log('ORDENADOS: ', sorted);                   
@@ -55,21 +51,23 @@ export function Home(props) {
 
         
     return (
-        <div className={styles.backhome}>
+        <div className={style.backhome}>
             <h2>Search for recipes</h2>
-            <form onSubmit={e => handleSubmit(e)}>
+            
+            <form className={style.searchForm} onSubmit={e => handleSubmit(e)}>
                 <div>
                     <input
+                        className={style.searchBar}
                         type='text'
                         autoComplete='off'
                         value={state}
                         onChange={e => handleChange(e)}
                     />
                 </div>
-                    <button type='submit'>Submit</button>
+                    <button className={style.button} type='submit'>Submit</button>
             </form>
                    <div>
-                        <select onChange={order} name='order'>
+                        <select className={style.select} onChange={order} name='order'>
                             <option value='x'>Sort by...</option>
                             <option value='1'>A-Z</option>
                             <option value='2'>Z-A</option>
@@ -78,7 +76,7 @@ export function Home(props) {
                         </select>
                     </div>
                     <div>
-                        <select onChange={filterDiet} name='filterDiet'>
+                        <select className={style.select} onChange={filterDiet} name='filterDiet'>
                             <option value='x'>Select diet...</option>
                             <option value='gluten free'>Gluten free</option>
                             <option value='ketogenic'>Ketogenic</option>
@@ -94,7 +92,7 @@ export function Home(props) {
                     </div>
                 <div>
                 <Link to={'/create'}>
-                   <h5 className={styles.buttonhome}>Create a recipe!</h5>
+                   <h5 className={style.buttonhome}>Create a recipe!</h5>
                 </Link>
                 </div>
                 <div>

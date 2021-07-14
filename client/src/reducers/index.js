@@ -1,4 +1,4 @@
-import { GET_RECIPES, RECIPE_DETAIL, CREATE_RECIPE, GET_DIETS, SET_SHOW } from "../actions/index";
+import { GET_RECIPES, RECIPE_DETAIL, CREATE_RECIPE, GET_DIETS, SET_SHOW, RESET_DETAIL } from "../actions/index";
 import { dietsArray, dietModifier } from "../utils/functions";
 
 const initialState = {
@@ -36,7 +36,12 @@ export default function reducer(state = initialState, { type, payload }) {
       case SET_SHOW: return {
         ...state,
         recipes: payload
+      }
+      case RESET_DETAIL: return {
+        ...state,
+        details: payload
       }      
+
       default: return state;
     }
   };

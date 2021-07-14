@@ -15,7 +15,7 @@ export function CreateRecipe(props) {
         summary: '',
         spoonacularScore: '',
         healthScore: '',
-        stepByStep: '',
+        instructions: '',
         diets: []       
       });
       
@@ -56,7 +56,7 @@ export function CreateRecipe(props) {
         if(!input.summary) errors.summary = 'A summary is required';
         if(!input.spoonacularScore) errors.spoonacularScore = 'Give your recipe a score';
         if(!input.healthScore) errors.healthScore = 'Give your recipe a health score';
-        if(!input.stepByStep) errors.stepByStep = 'You must enter a step by step';
+        if(!input.instructions) errors.instructions = 'You must enter a step by step';
         return errors;
       }
 
@@ -82,15 +82,13 @@ export function CreateRecipe(props) {
           console.log('REMOVE DIETS: ', state);
       }
       
-      /* const arrayDiets = ['notUsed', 'gluten free', 'ketogenic', 'vegetarian', 'lacto ovo vegetarian',
-                        'dairy free', 'vegan', 'pescetarian', 'paleolithic', 'primal', 'whole30']; */
-            
+
 
 
       function handleSubmit(e) {        
         e.preventDefault();        
-        console.log('HANDLE SUBMIT: ', state);
-        props.createRecipe(state);        
+        props.createRecipe(state);
+        console.log('ESTADO POSTEADO: ', state);
         redirect();
       }     
             
@@ -166,11 +164,11 @@ export function CreateRecipe(props) {
             </label>
             <div className={styles.step}>
                 <textarea 
-                    name='stepByStep' 
-                    className={ errors.stepByStep && styles.danger } 
+                    name='instructions' 
+                    className={ errors.instructions && styles.danger } 
                     maxLength='200' 
                     onChange={e => handleChange(e)} 
-                    value={state.setpByStep}/>
+                    value={state.instructions}/>
             </div>
             <div>
               <button type='submit' disabled={disable}>Add</button>
@@ -208,7 +206,7 @@ export function CreateRecipe(props) {
                 <option value='10'>Whole30</option>
             </select>                     
         <div>         
-          <Link to={'/home'}>
+          <Link to={'/home'} className={styles.link}>
               <h5 className={styles.backButton}>Go back</h5>
           </Link>
         </div>

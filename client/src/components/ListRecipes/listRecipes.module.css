@@ -1,5 +1,84 @@
 .cards {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;    
+    margin-left: 20px;
+    height: 400px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgb(71, 71, 71);
+  }
+
+  .cards:hover {
+    
+  }
+
+  .cardcontainer {
+      display: flex;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+      align-items: center;
+      padding-top: 20px;
+      min-width: 40%;     
+  }
+
+  .link {    
+    border-radius: 2px;
+    background-color: #ffffff;
+    color: rgb(0, 75, 173);    
+    font-size: 20px; 
+   
+  }
+
+
+  .button:hover {
+    background-color: #d6671d; 
+    color: white;
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px 5px 5px 0px rgba(0,0,0,0.75);
+  }
+
+
+
+
+
+  .title {
+      height: 30px;
+      width: 400px;
+  }
+
+  .diets {
+    display: flex;
+    flex-direction: column;
+    max-height: 90px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+  }
+
+  .image {
+      width: 300px;      
+      margin-right: 20px;
+      
+  }
+
+  .pic {
+    border-radius: 8px;
+    width: 280px;
+    height: 200px;    
+  }
+
+  .dietsul {   
+      width: 100px;
+  } 
+
+  .listdiet{      
+      height: 20px;      
+      width: 100px;
+  }
+
+  .prueba {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 300px;      
   }

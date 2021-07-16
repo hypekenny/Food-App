@@ -6,7 +6,9 @@ const { Recipe, conn } = require('../../src/db.js');
 
 const agent = session(app);
 const recipe = {
-  name: 'Milanea a la napolitana',
+  id: 'c34e856d-6624-40be-b9b1-98860bee0b40',
+  title: 'Milanea a la napolitana',
+  summary: 'xxxxx'
 };
 
 describe('Recipe routes', () => {
@@ -21,4 +23,11 @@ describe('Recipe routes', () => {
       agent.get('/recipes').expect(200)
     );
   });
+  describe('POST /recipes', () => {
+    it('should get 200 and the recipe just added', () => {
+      agent.post('/recipes')
+      .send({title: 'Milanesa', summary: 'xxx'})
+      .expect(200);      
+    });
+  })
 });

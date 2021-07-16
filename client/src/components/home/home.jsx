@@ -51,8 +51,8 @@ export function Home(props) {
 
         
     return (
-        <div className={style.backhome}>
-            <h2>Search for recipes</h2>
+        <div className={style.backHome}>
+            <h1 className={style.title}>Search for recipes</h1>
             
             <form className={style.searchForm} onSubmit={e => handleSubmit(e)}>
                 <div>
@@ -84,19 +84,13 @@ export function Home(props) {
                             <option value='lacto ovo vegetarian'>Lacto ovo vegetarian</option>
                             <option value='dairy free'>Dairy free</option>  
                             <option value='vegan'>Vegan</option>
-                            <option value='pescetarian'>Pescetarian</option>
+                            <option value='pescatarian'>Pescatarian</option>
                             <option value='paleolithic'>Paleo</option>
                             <option value='primal'>Primal</option>
                             <option value='whole30'>Whole30</option>
                         </select>
-                    </div>
-                <div>
-                <Link to={'/create'}>
-                   <h5 className={style.buttonhome}>Create a recipe!</h5>
-                </Link>
-                </div>
-                <div>
-                {console.log('RENDER TO SHOW: ', show)}                     
+                    </div>                
+                <div>                                    
                     <List/>
                 </div>
         </div>

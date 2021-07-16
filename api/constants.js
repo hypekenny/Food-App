@@ -7,7 +7,7 @@ diets: [
     'lacto ovo vegetarian',
     'dairy free',
     'vegan',
-    'pescetarian',
+    'pescatarian',
     'paleolithic',
     'primal',
     'whole30'

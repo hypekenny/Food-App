@@ -1,0 +1,13 @@
+
+
+.footer {
+    background: #b8b8b8;
+    background: -webkit-linear-gradient(to right, #b8b8b8, #c8c8c8);
+    background: linear-gradient(to right, #b8b8b8, #aaaaaa);
+    height: 70px;
+}
+
+.text {
+    padding-top: 20px;
+    color: #ffffff;
+}

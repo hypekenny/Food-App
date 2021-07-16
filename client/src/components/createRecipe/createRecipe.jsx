@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import {connect} from 'react-redux';
-import { createRecipe } from '../../actions/index';
-import styles from './createRecipe.module.css'
+import { createRecipe, getRecipes } from '../../actions/index';
+import style from './createRecipe.module.css'
 const { arrayDiets } = require('../../utils/constants');
 
 
@@ -49,6 +49,12 @@ export function CreateRecipe(props) {
         }     
       };
 
+      function handleSubmit(e) {        
+        e.preventDefault();        
+        props.createRecipe(state);
+        props.getRecipes('');
+        redirect();
+      };
       
       function validate(input) {
         let errors = {};
@@ -61,37 +67,22 @@ export function CreateRecipe(props) {
       }
 
       useEffect(() =>{
-        setState({ ...state, diets});
-        console.log('HANDLE DIETS EFFECT: ', state);
-        console.log('SET DIETS EFFECT: ', diets);
+        setState({ ...state, diets});        
       }, [diets] )
 
       function handleDiets(e) {
         const value = e.target.value;
         if(e.target.value !== 'x' && !diets.includes(e.target.value)) {
         setDiets ([...diets, value])  
-      }}
-      
+      }}      
 
       function removeDiet(d) {
           let array = diets;          
           let index = array.indexOf(d)          
           array.splice(index, 1);          
           setDiets([...array]);
-          setState({ ...state, diets});
-          console.log('REMOVE DIETS: ', state);
-      }
-      
-
-
-
-      function handleSubmit(e) {        
-        e.preventDefault();        
-        props.createRecipe(state);
-        console.log('ESTADO POSTEADO: ', state);
-        redirect();
-      }     
-            
+          setState({ ...state, diets});          
+      };
     
         const [red, setRed] = React.useState('');
         const [flag, setFlag] = React.useState(false);
@@ -102,97 +93,98 @@ export function CreateRecipe(props) {
             }            
             if(flag) {
                 return <Redirect to={red} />
-            };         
-            
+            };            
             
       return (
-        <div>
+        <div className={style.main}>
+          <div className={style.container}>
             <h2>Add your recipe</h2>
-          <form onSubmit={e => handleSubmit(e)}>
-            <label>
-              <b>Name </b>
-            </label>
-            <div className={styles.input}>
-                <input 
-                    name='title' 
-                    className={ errors.title && styles.danger } 
-                    autoFocus 
-                    onChange={e => handleChange(e)} 
-                    value={state.title}/>
+              <form onSubmit={e => handleSubmit(e)}>
+                <label>
+                  <b>Name </b>
+                </label>
+                <div className={style.title}>
+                    <input 
+                        name='title'                        
+                        className={`${errors.title && style.danger} ${style.input}`} 
+                        autoFocus 
+                        onChange={e => handleChange(e)} 
+                        value={state.title}/>
+                </div>                
+                <label>
+                  <b>Summary </b>
+                </label>
+                <div className={style.summary}>
+                    <textarea 
+                        name='summary' 
+                        className={`${errors.summary && style.danger} ${style.input}`} 
+                        maxLength='200' 
+                        onChange={e => handleChange(e)} 
+                        value={state.summary}/>
                 </div>
-            <label>
-              <b>Summary </b>
-            </label>
-            <div className={styles.summary}>
-                <textarea 
-                    name='summary' 
-                    className={ errors.summary && styles.danger } 
-                    maxLength='200' 
-                    onChange={e => handleChange(e)} 
-                    value={state.summary}/>
-            </div>
-            <label>
-              <b>Score </b>
-            </label>
-            <div className={styles.score}>
-                <input 
-                    type='number' 
-                    name='spoonacularScore' 
-                    className={ errors.spoonacularScore && styles.danger } 
-                    min="1" 
-                    max="99" 
-                    placeholder="1 to 99" 
-                    onChange={e => handleChange(e)} 
-                    value={state.spoonacularScore}/>
-            </div>
-            <label>
-              <b>Health score </b>
-            </label>
-            <div className={styles.health}>         
-                <input 
-                    type='number' 
-                    name='healthScore' 
-                    className={ errors.healthScore && styles.danger } 
-                    min="1" 
-                    max="99" 
-                    placeholder="1 to 99" 
-                    onChange={e => handleChange(e)} 
-                    value={state.healthScore}/>            
-            </div>
-            <label>
-              <b>Step by step </b>
-            </label>
-            <div className={styles.step}>
-                <textarea 
-                    name='instructions' 
-                    className={ errors.instructions && styles.danger } 
-                    maxLength='200' 
-                    onChange={e => handleChange(e)} 
-                    value={state.instructions}/>
-            </div>
-            <div>
-              <button type='submit' disabled={disable}>Add</button>
-            </div>
+                <label>
+                  <b>Score </b>
+                </label>
+                <div className={style.score}>
+                    <input 
+                        type='number' 
+                        name='spoonacularScore' 
+                        className={`${errors.spoonacularScore && style.danger} ${style.input}`}  
+                        min="1" 
+                        max="99" 
+                        placeholder="1 to 99" 
+                        onChange={e => handleChange(e)} 
+                        value={state.spoonacularScore}/>
+                </div>
+                <label>
+                  <b>Health score </b>
+                </label>
+                <div className={style.health}>         
+                    <input 
+                        type='number' 
+                        name='healthScore' 
+                        className={`${errors.healthScore && style.danger} ${style.input}`} 
+                        min="1" 
+                        max="99" 
+                        placeholder="1 to 99" 
+                        onChange={e => handleChange(e)} 
+                        value={state.healthScore}/>            
+                </div>
+                <label>
+                  <b>Step by step </b>
+                </label>
+                <div className={style.step}>
+                    <textarea 
+                        name='instructions' 
+                        className={`${errors.instructions && style.danger} ${style.input}`}  
+                        maxLength='200' 
+                        onChange={e => handleChange(e)} 
+                        value={state.instructions}/>
+                </div>
+                <div className={style.buttonContainer}>
+                  <button className={style.button} type='submit' disabled={disable}>Add</button>
+                </div>
             </form>
-            <div className={styles.diets}>
+            <div className={style.diets}>
             <label>
               <b>Type of diets</b>
             </label>
             </div>
-            <ul>
+            <div className={style.dietsContainer}>
                 {diets && diets.map(d => {    
                     let i = parseInt(d);                    
-                    return (<div key={arrayDiets[i]}>
+                      return (<div key={arrayDiets[i]}>
                         <div>
-                        <p>{arrayDiets[i]}</p>                        
+                            <label>{arrayDiets[i]}</label>                        
+                            <button className={style.close} onClick={e => removeDiet(d)} >x</button>
                         </div>
-                        <button className='close' onClick={e => removeDiet(d)} >x</button>
-                        </div>
+                           
+                    </div>
                         )
                     })
                 }
-            </ul>            
-            <select onChange={handleDiets} name='diets'>
+            </div>            
+            <select className={style.input} onChange={handleDiets} name='diets'>
                 <option value='x'>Diets...</option>
                 <option value='1'>Gluten free</option>
                 <option value='2'>Ketogenic</option>
@@ -200,14 +192,15 @@ export function CreateRecipe(props) {
                 <option value='4'>Lacto ovo vegetarian</option>
                 <option value='5'>Dairy free</option>
                 <option value='6'>Vegan</option>   
-                <option value='7'>Pescetarian</option>
+                <option value='7'>Pescatarian</option>
                 <option value='8'>Paleolithic</option>
                 <option value='9'>Primal</option>
                 <option value='10'>Whole30</option>
-            </select>                     
+            </select>                             
+        </div>
         <div>         
-          <Link to={'/home'} className={styles.link}>
-              <h5 className={styles.backButton}>Go back</h5>
+          <Link to={'/home'} className={style.link}>
+              <h5 className={style.backButton}>Go back</h5>
           </Link>
         </div>
     </div>
@@ -215,20 +208,20 @@ export function CreateRecipe(props) {
 }     
 
 
-function mapStateToProps(state) {
-    return {
-        createRecipe: state.createRecipe
+/* function mapStateToProps(state) {
+    return {        
+        getRecipes: state.recipes
      };
-  }
+  } */
   
   function mapDispatchToProps(dispatch) {
     return {
         createRecipe: recipe => dispatch(createRecipe(recipe)),
-      
+        getRecipes: recipe => dispatch(getRecipes(recipe))      
     };
   }
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
   )(CreateRecipe);

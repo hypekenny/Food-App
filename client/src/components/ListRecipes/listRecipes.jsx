@@ -15,8 +15,7 @@ export function List(props) {
         setCurrentPage(0);
     }, [props.recipes] );
    
-        function pages() {
-            
+        function pages() {            
         return props.recipes.slice(currentPage, currentPage + 6);
         };
 
@@ -24,7 +23,6 @@ export function List(props) {
             if(props.recipes.length > currentPage + 6) {
             setCurrentPage(currentPage + 6);
         }};
-
         
         function prevPage() {
             if(currentPage > 0) {
@@ -37,15 +35,15 @@ export function List(props) {
                     { pages().length ? (
                     <>
                     <div>
-                        <button onClick={prevPage}>Prev Page</button>
-                        <button onClick={nextPage}>Next Page</button>
+                        <button className={style.buttonPrev} onClick={prevPage}>Prev Page</button>
+                        <button className={style.buttonNext} onClick={nextPage}>Next Page</button>
                     </div>
                     <div className={style.cardcontainer}>
-                    { !!pages() && pages().map(e =>
-                            <div className={style.cards} key={e.id}>                                                                
-                                <div className={style.title}>
-                                    <h4>{e.title}</h4>
-                                </div>  
+                         { !!pages() && pages().map(e =>
+                                <div className={style.cards} key={e.id}>                                                                
+                                     <div className={style.title}>
+                                         <h3 className={style.h2}>{e.title}</h3>
+                                     </div>  
 
                                 <div className={style.prueba}>
                                     <div className={style.image}>

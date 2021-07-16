@@ -8,22 +8,18 @@ import style from './recipeDetail.module.css';
 
 
 
-
-
 export function RecipeDetail(props) {
     
     const { getDetail } = props;
-    const { id } = props.match.params; 
-    
-    
+    const { id } = props.match.params;    
 
+    
     useEffect(() => {
-        console.log('ENTRO AL USEEFFECT');
-        props.resetDetail();
+        console.log('ENTRO AL USEEFFECT');        
         getDetail(id);        
+        return props.resetDetail();
     }, [])
-
-    console.log('AAAAAA', props.recipe);
+    
 
     const aux = useHistory().location.pathname;
 
@@ -32,33 +28,44 @@ export function RecipeDetail(props) {
 
 
     return (        
-        <div id={props.recipe.id}>
-            { props.recipe.title ? (  
-                <>         
-            <h2>{props.recipe.title}</h2>
-                <img src={props.recipe.image ? props.recipe.image : altimage} alt=''/>
-            <div>
-                <h4>Summary:</h4>
-                     <div className={style.containerText}>
-                         <span className={style.text} dangerouslySetInnerHTML={{__html: props.recipe.summary}}></span>
+        <div className={style.back} id={props.recipe.id}>
+                { props.recipe.title ? (  
+             <div className={style.container}>
+                <h2 className={style.title}>{props.recipe.title}</h2>
+                    <div className={style.imageContainer}>
+                        <img className={style.image} src={props.recipe.image ? props.recipe.image : altimage} alt=''/>
+                    </div>
+                <div>
+                    <h4>Summary:</h4>
+                        <div className={style.containerText}>
+                            <span className={style.text} dangerouslySetInnerHTML={{__html: props.recipe.summary}}></span>
+                        </div>
+                </div>
+                <div>
+                    <h4>Step by step:</h4>
+                        <div className={style.containerText}>
+                            <p dangerouslySetInnerHTML={{__html: props.recipe.instructions}}></p>
+                        </div>
+                </div>
+                <div>
+                    <h4>Score: {props.recipe.spoonacularScore}</h4>
+                    
+                    <h4>Health Score: {props.recipe.healthScore}</h4>
+                    
+                    <h4 className={style.dietsTitle}>Diets:</h4>
+                       
+                        <div className={style.dietsContainer}>
+                              { props.recipe.diets && props.recipe.diets.map((e, index) => 
+                                     <p className={style.diets} key={`${props.recipe.id}-${index}`}>{e}</p>)}
+                        </div>
+                </div>
+                    <div className={style.containerLink}>
+                        <Link to={'/home'}>
+                            <h5>Go back</h5>
+                        </Link>
                     </div>
             </div>
-            <div>
-                <h4>Step by step</h4>
-                    <div className={style.containerText}>
-                        <p dangerouslySetInnerHTML={{__html: props.recipe.instructions}}></p>
-                    </div>
-            </div>
-            <div>
-                <p>Score: {props.recipe.spoonacularScore}</p>
-                <p>Health Score: {props.recipe.healthScore}</p>
-               {console.log('DIETAAAAA: ', props.recipe.diets)}               
-               <span>Diets: { props.recipe.diets && props.recipe.diets.map((e, index) => <p key={`${props.recipe.id}-${index}`}>{e}</p>)}</span>
-            </div>
-            <Link to={'/home'}>
-                <h5>Go back</h5>
-            </Link>
-             </>) : <Loading/> }
+             ) : <Loading/> }
         </div>
     )
 }

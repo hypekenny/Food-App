@@ -28,6 +28,8 @@ export function Home(props) {
         props.getRecipes(state);               
     };
 
+    ////////////////////// Diet filter //////////////////////////////
+
     function filterDiet(e) {
         e.preventDefault();
         let array = recipes;
@@ -37,6 +39,8 @@ export function Home(props) {
         setSorted(array);        
     };
     
+    /////////////// Sorting ////////////////////////////////////
+
     function order(e) {
         e.preventDefault();
         let array = recipes;

@@ -24,14 +24,15 @@ export function CreateRecipe(props) {
       const [errors, setErrors] = useState({});
       const [disable, setDisable] = useState(true);
     
-      
+      ////////// Form validation //////////////////
+         
       useEffect(() => {
         if(Object.values(errors).length === 0) {
             setDisable(false);
           } else {
             setDisable(true);
           }        
-      }, [errors])
+      }, [errors]);
       
       function handleChange(e) {
         setErrors(validate({
@@ -66,6 +67,8 @@ export function CreateRecipe(props) {
         return errors;
       }
 
+      //////////// Diet handler ////////////////
+
       useEffect(() =>{
         setState({ ...state, diets});        
       }, [diets] )
@@ -84,6 +87,9 @@ export function CreateRecipe(props) {
           setState({ ...state, diets});          
       };
     
+
+      /////////////// Redirect /////////////////////
+
         const [red, setRed] = React.useState('');
         const [flag, setFlag] = React.useState(false);
 
@@ -93,7 +99,8 @@ export function CreateRecipe(props) {
             }            
             if(flag) {
                 return <Redirect to={red} />
-            };            
+            }; 
+
             
       return (
         <div className={style.main}>
@@ -101,7 +108,7 @@ export function CreateRecipe(props) {
             <h2>Add your recipe</h2>
               <form onSubmit={e => handleSubmit(e)}>
                 <label>
-                  <b>Name </b>
+                  <b>Name</b>
                 </label>
                 <div className={style.title}>
                     <input 
@@ -112,7 +119,7 @@ export function CreateRecipe(props) {
                         value={state.title}/>
                 </div>                
                 <label>
-                  <b>Summary </b>
+                  <b>Summary</b>
                 </label>
                 <div className={style.summary}>
                     <textarea 
@@ -162,7 +169,7 @@ export function CreateRecipe(props) {
                         value={state.instructions}/>
                 </div>
                 <div className={style.buttonContainer}>
-                  <button className={style.button} type='submit' disabled={disable}>Add</button>
+                  <button className={`${disable && style.buttonBlur} ${style.button}`} type='submit' disabled={disable}>Add</button>
                 </div>
             </form>
             <div className={style.diets}>
@@ -208,11 +215,6 @@ export function CreateRecipe(props) {
 }     
 
 
-/* function mapStateToProps(state) {
-    return {        
-        getRecipes: state.recipes
-     };
-  } */
   
   function mapDispatchToProps(dispatch) {
     return {

@@ -11,16 +11,14 @@ const initialState = {
 
 export default function reducer(state = initialState, { type, payload }) {
     switch (type) {
-      case GET_RECIPES: 
-      console.log('GET RECIPES: ', payload);
+      case GET_RECIPES:       
       let array = dietModifier(payload);
         return {
         ...state,
         recipes: array
       }
       case RECIPE_DETAIL: 
-        let obj = payload;
-        console.log('RECIPE DETAIL: ', payload);       
+        let obj = payload;        
         if(typeof obj.diets[0] === 'object') obj = dietsArray(payload);        
         return {
         ...state,

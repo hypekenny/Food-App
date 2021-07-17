@@ -14,17 +14,10 @@ export function RecipeDetail(props) {
     const { id } = props.match.params;    
 
     
-    useEffect(() => {
-        console.log('ENTRO AL USEEFFECT');        
+    useEffect(() => {            
         getDetail(id);        
         return props.resetDetail();
-    }, [])
-    
-
-    const aux = useHistory().location.pathname;
-
-    console.log(aux); 
-    console.log('FUNCIOOOOOON: ', props.recipe );
+    }, [])    
 
 
     return (        

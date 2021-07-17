@@ -8,7 +8,7 @@ export default function NavBar() {
     return (
         <header className={style.navbar}>
             <div>
-                <img id="logo" src={logo} width="60" height="30" className="d-inline-block align-top" alt="" />
+                <img id="logo" src={logo} width="60" height="30" alt="" />
             </div>
             <nav>
                 <ul className={style.list}>

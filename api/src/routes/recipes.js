@@ -32,7 +32,7 @@ router.get('/:idReceta', (req, res, next) => {
     const rx = new RegExp(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i);
     let match = id.match(rx);    
     if(match) {
-        return Recipe.findByPk(id, { include: { model: Diet }})  // si lo pasan como string usar parseInt
+        return Recipe.findByPk(id, { include: { model: Diet }})  
         .then(recipe => res.send(recipe))
         .catch(error => next(error));
     }

@@ -71,8 +71,6 @@ export function List(props) {
                                       )}
                     </div>
                                       </>) : <NotFound/>}
-                    
-
                 </div>
 
     )

@@ -20,11 +20,10 @@ export function getRecipes(state) {
 export function getDetail(id) {    
     return (dispatch) => {
     axios.get(`http://localhost:3001/recipes/${id}`)
-        .then(response => {
-            console.log('RESPONSE: ', response.data);
+        .then(response => {            
             dispatch({ type: RECIPE_DETAIL, payload: response.data})
             })
-            .catch(error => alert(error));
+            .catch(error => console.error(error));
     }
 };
 

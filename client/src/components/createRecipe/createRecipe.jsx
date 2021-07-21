@@ -21,7 +21,7 @@ export function CreateRecipe(props) {
       
       
       const [diets, setDiets] = useState([]);
-      const [errors, setErrors] = useState({});
+      const [errors, setErrors] = useState({title: 'The recipe name is required'});
       const [disable, setDisable] = useState(true);
     
       ////////// Form validation //////////////////

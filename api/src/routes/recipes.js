@@ -13,7 +13,7 @@ const {
 router.get('/', (req, res, next) => {    
     const name = req.query.name;
     const myDb = Recipe.findAll({ where: { title: {[Op.like]: `%${name}%`}}, include: Diet});
-    const api = axios.get(`${API_URL}?query=${name}&number=14&addRecipeInformation=true&apiKey=${API_KEY}`);
+    const api = axios.get(`${API_URL}?query=${name}&number=100&addRecipeInformation=true&apiKey=${API_KEY2}`);
     Promise.all([myDb, api])
     .then(results => {
         const [myDbResults, apiResults] = results;
@@ -27,8 +27,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:idReceta', (req, res, next) => {    
-    const id = req.params.idReceta;
-    console.log('BBBBBBBB', id);
+    const id = req.params.idReceta;    
     const rx = new RegExp(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i);
     let match = id.match(rx);    
     if(match) {
@@ -36,7 +35,7 @@ router.get('/:idReceta', (req, res, next) => {
         .then(recipe => res.send(recipe))
         .catch(error => next(error));
     }
-    axios.get(`${API_URL_ID}/${id}/information?apiKey=${API_KEY}`)
+    axios.get(`${API_URL_ID}/${id}/information?apiKey=${API_KEY2}`)
     .then(response => {
         const {title, image, diets, summary, instructions, spoonacularScore, healthScore } = response.data;
         res.send({
@@ -49,7 +48,7 @@ router.get('/:idReceta', (req, res, next) => {
             healthScore
         })
     })
-    .catch(error => next(error));  
+    .catch(error => res.send({ message: error }));
     
 });
 
@@ -58,7 +57,7 @@ router.post('/', async (req, res, next) => {
     const diets = req.body.diets;
     var d = diets.map(e => parseInt(e));
     
-
+    try {
     let newRecipe = await Recipe.create({
              title,
              spoonacularScore,
@@ -66,12 +65,15 @@ router.post('/', async (req, res, next) => {
              summary,             
              instructions,
              id: uuidv4()
-                  })
+                  })                
 
-    d.map(async (d) => await newRecipe.setDiets(d))
-        
+    d.map(async (d) => await newRecipe.setDiets(d))        
    
          res.send(newRecipe);
+        } catch (error) {
+            console.error(error);
+            }
+        
 
         
 });

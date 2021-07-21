@@ -1,10 +1,10 @@
-import { createRecipe, getDiets } from './index.js';
+import { createRecipe, getRecipes } from './index.js';
 
 describe('Action Creators', () => {
-    it('should return an action type CREATE_RECIPE and a payload', () => {
+    test('should return an action type CREATE_RECIPE', () => {
       const payload = { title: 'milanesa', summary: 'xxx' };
-      expect(createRecipe(payload)).toEqual({
-        type: 'create_recipe',
+      return expect(createRecipe(payload)).resolves.toBe({
+        type: 'CREATE_RECIPE',
         payload: {
           ...payload,
           title: 'milanesa',
@@ -12,4 +12,11 @@ describe('Action Creators', () => {
         }
       })
     });
+    test('should return an action type GET_RECIPES and a payload', () => {
+      return expect(getRecipes('pasta')).resolves.toBe({
+        type: 'get_recipes',
+        payload: 'data'
+      })
+
+    })
 })

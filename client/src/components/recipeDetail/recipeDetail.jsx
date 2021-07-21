@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getDetail, resetDetail } from '../../actions/index';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Loading from '../loading/loading';
 import altimage from "../../utils/altimage.png";
 import style from './recipeDetail.module.css';
+import NotFound from '../notFound/notFound';
 
 
 
@@ -19,7 +20,7 @@ export function RecipeDetail(props) {
         return props.resetDetail();
     }, [])    
 
-
+        
     return (        
         <div className={style.back} id={props.recipe.id}>
                 { props.recipe.title ? (  
@@ -58,7 +59,7 @@ export function RecipeDetail(props) {
                         </Link>
                     </div>
             </div>
-             ) : <Loading/> }
+             ) : props.recipe.message ? (<NotFound/>) : (<Loading/>) }
         </div>
     )
 }

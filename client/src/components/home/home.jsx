@@ -15,8 +15,7 @@ export function Home(props) {
     
    
     useEffect(() => {
-        setShow(sorted); 
-        console.log('ORDENADOS: ', sorted);                   
+        setShow(sorted);                        
     }, [sorted, setSorted])
     
     function handleChange(e) {
@@ -44,8 +43,7 @@ export function Home(props) {
     function order(e) {
         e.preventDefault();
         let array = recipes;
-        const { value } = e.target;
-        console.log(value);        
+        const { value } = e.target;            
         if(value === '1') array = [...array].sort((a, b) => a.title.localeCompare(b.title));
         if(value === '2') array = [...array].sort((a, b) => a.title.localeCompare(b.title)).reverse();
         if(value === '3') array = [...array].sort((a, b) => b.spoonacularScore - a.spoonacularScore);

@@ -13,7 +13,7 @@ const {
 router.get('/', (req, res, next) => {    
     const name = req.query.name;
     const myDb = Recipe.findAll({ where: { title: {[Op.like]: `%${name}%`}}, include: Diet});
-    const api = axios.get(`${API_URL}?query=${name}&number=100&addRecipeInformation=true&apiKey=${API_KEY3}`);
+    const api = axios.get(`${API_URL}?query=${name}&number=20&addRecipeInformation=true&apiKey=${API_KEY3}`);
     Promise.all([myDb, api])
     .then(results => {
         const [myDbResults, apiResults] = results;

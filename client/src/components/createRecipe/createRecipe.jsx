@@ -79,8 +79,8 @@ export function CreateRecipe(props) {
         setDiets ([...diets, value])  
       }}      
 
-      function removeDiet(d) {
-          let array = diets;          
+      function removeDiet(d) {          
+          let array = diets;         
           let index = array.indexOf(d)          
           array.splice(index, 1);          
           setDiets([...array]);

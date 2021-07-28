@@ -14,7 +14,7 @@ const llave = API_KEY || API_KEY2 || API_KEY3 || API_KEY4 || API_KEY5;
 router.get('/', (req, res, next) => {    
     const name = req.query.name;
     const myDb = Recipe.findAll({ where: { title: {[Op.like]: `%${name}%`}}, include: Diet});
-    const api = axios.get(`${API_URL}?query=${name}&number=50&addRecipeInformation=true&apiKey=${llave}`);
+    const api = axios.get(`${API_URL}?query=${name}&number=50&addRecipeInformation=true&apiKey=${API_KEY3}`);
     Promise.all([myDb, api])
     .then(results => {
         const [myDbResults, apiResults] = results;
@@ -36,7 +36,7 @@ router.get('/:idReceta', (req, res, next) => {
         .then(recipe => res.send(recipe))
         .catch(error => next(error));
     }
-    axios.get(`${API_URL_ID}/${id}/information?apiKey=${llave}`)
+    axios.get(`${API_URL_ID}/${id}/information?apiKey=${API_KEY3}`)
     .then(response => {
         const {title, image, diets, summary, instructions, spoonacularScore, healthScore } = response.data;
         res.send({

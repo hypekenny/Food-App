@@ -10,7 +10,7 @@ const dietRoutes = require('./types.js');
 const router = Router();
 
 router.get('/', (req, res) => {
-    res.send('acá el home');
+    res.send('This is the test page of the backend');
 });
 
 
